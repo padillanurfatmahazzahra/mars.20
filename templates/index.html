@@ -57,48 +57,48 @@
         }
     </style>
     <script>
-       $(document).ready(function () {
+        $(document).ready(function () {
             show_order();
         });
+
         function show_order() {
+            $('#order-box').empty()
             $.ajax({
                 type: 'GET',
                 url: '/mars',
                 data: {},
                 success: function (response) {
-                    $('#order-box').empty();
                     let rows = response['orders'];
                     for (let i = 0; i < rows.length; i++) {
                         let name = rows[i]['name'];
                         let address = rows[i]['address'];
                         let size = rows[i]['size'];
                         let temp_html = `
-                <tr>
-                    <td>${name}</td>
-                    <td>${address}</td>
-                    <td>${size}</td>
-                </tr>
-                        `;
-                        $('#order-box').append(temp_html);
+                    <tr>
+                        <td>${name}</td>
+                        <td>${address}</td>
+                        <td>${size}</td>
+                    </tr>
+                    `;
+                        $('#orders-box').append(temp_html);
                     }
                 }
             });
         }
+
+
         function save_order() {
-            let name = $('#name').val();
-            let address = $('#address').val();
-            let size = $('#size').val();
+            let name = $('#name').val()
+            let address = $('#address').val()
+            let size = $('#size').val()
+
             $.ajax({
                 type: 'POST',
                 url: '/mars',
-                data: {
-                    name_give: name,
-                    address_give: address,
-                    size_give: size,
-                },
+                data: { name_give: name, address_give: address, size_give: size },
                 success: function (response) {
-                    alert(response['msg']);
-                    window.location.reload();
+                    alert(response['msg'])
+                    window.location.reload()
                 }
             });
         }
@@ -111,8 +111,7 @@
         <h1>Buy Martian Land!</h1>
         <h3>Price: $1.00 / acre</h3>
         <p>
-            Did you know you could buy Martian land?<br />
-            This chance won't come again!
+            Did you know you could buy Martian land?<br /> This chance won't come again!
         </p>
         <div class="order-info">
             <div class="input-group mb-3">
@@ -144,22 +143,7 @@
                     <th scope="col">Acres</th>
                 </tr>
             </thead>
-            <tbody id="order-box">
-                <tr>
-                    <td>Jim</td>
-                    <td>100 Downing St.</td>
-                    <td>20 acres</td>
-                </tr>
-                <tr>
-                    <td>Bob</td>
-                    <td>856 Peterson Ave.</td>
-                    <td>10 acres</td>
-                </tr>
-                <tr>
-                    <td>Steve</td>
-                    <td>212 Baker St.</td>
-                    <td>30 acres</td>
-                </tr>
+            <tbody id="orders-box">
             </tbody>
         </table>
     </div>
